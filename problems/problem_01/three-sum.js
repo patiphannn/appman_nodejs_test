@@ -1,29 +1,21 @@
-const isEqual = (arrs, arr) => {
-	for(let i=0;i<arrs.length;i++) {
-  	if(arrs[i].sort().toString() == arr.sort().toString()) {
-    	return true;
-    }
-  }
-
-  return false;
-}
-
 const threeSum = (arr, x, position = 0, result = []) => {
-  if((position + 1) === arr.length) {
+	const len = arr.length;
+  if((position + 1) === (len -2)) {
   	return result;
   }
 
 	const a1 = arr[position];
 
-  for(let i=(position+1);i<arr.length;i++) {
+  for(let i=(position+1);i<(len - 1);i++) {
   	const diff = x - (a1 + arr[i]);
-    const index = arr.indexOf(diff, 0);
+		let y = (i + 1),
+    index = arr.indexOf(diff, y);
 
-    if(index > -1 && index !== position && index !== i) {
-    	if(!isEqual(result, [position, i, index])) {
-      	result.push([position, i, index]);
-      }
-    }
+		while (index > -1) {
+			result.push([position, i, index]);
+			y = index + 1;
+		  index = arr.indexOf(diff, y);
+		}
   }
 
   return threeSum(arr, x, position + 1, result);
